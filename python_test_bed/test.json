@@ -1,0 +1,150 @@
+[
+
+[
+{
+"query" : {
+	"filtered":{
+		"query":{
+			"bool":{
+				"must":[
+					{"multi_match":{
+				"fields":["title^10","content"],
+				"query":"u.s."
+			}}
+				],
+				"must_not":[
+					{"multi_match":{
+				"fields":["title^10","content"],
+				"query":"us"
+			}}
+				]
+		}
+			
+		},
+		"filter":{
+			"range":{"crdate":{"from":"2013-01-01"
+										}
+						}
+					}
+    
+				}
+			},
+	"facets" : {
+        "volume_by_day" : {
+            "date_histogram" : {
+                "field" : "crdate",
+                "interval" : "day"
+            }
+        }
+    },
+	"fields":["title","content"],
+	"highlight":{
+		"fields":{
+			"content":{"fragment_size":50}
+		}
+	}
+}
+]
+,
+[
+{
+"query" : {
+	"filtered":{
+		"query":{
+			"has_parent":{
+				"parent_type":"prj",
+				"query":{"match":{"title":"Feed"}}
+			}
+			
+		},
+		"filter":{
+			"range":{"crdate":{"from":"2013-01-01"}
+			}}
+			
+				}
+			}
+}
+]
+,
+[
+{
+"query" : {
+	"filtered":{
+		"query":{
+			"bool":{
+				"must":[
+					{"multi_match":{
+				"fields":["title^10"],
+				"query":"feed"}},
+				{
+					"has_child" : {
+						"child_type":"doc",
+						"query":{"match":{"content":"U.S."}}
+					}
+				}
+				],
+				"must_not":[
+					
+				]
+		}
+			
+		}
+    
+				}
+			}
+
+}
+]
+,
+[
+{
+"sort":{"crdate":"desc"},
+"fields":["crdate","content"],
+
+"query" : {
+
+        "match" : {
+                 "_all":"u.s."
+                }
+    },
+    "facets" : {
+        "volume_by_week" : {
+            "date_histogram" : {
+                "field" : "crdate",
+                "interval" : "week"
+            }
+        },
+        "term frequency":{
+        	"terms":{"field":"content"}
+        }
+        
+    }
+}
+]
+,
+
+[
+{
+"query" : {
+	"nested":{
+		"path": "docmeta",
+		"query":{
+			"bool":{
+				"must":[
+					{"match":{
+					"docmeta.tagl.tag":"new york"}}
+				]
+					}
+				}
+    
+			}
+		}
+}
+]
+,
+[
+,
+{"query":{"filtered":{"query":{"match":{"doc.content":"u.s."}},"filter":{"term":{"doc.dtype":"html"
+}}}}}
+]
+
