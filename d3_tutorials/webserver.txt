@@ -1,0 +1,9 @@
+In terminal type:
+
+python -m SimpleHTTPServer 8888 &
+
+Open in a web browser:
+
+http://localhost:8888/
+
+

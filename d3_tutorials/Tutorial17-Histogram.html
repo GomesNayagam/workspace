@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+  <title>Histograms in D3</title>
+  <script src = 'd3.v3.min.js'></script>
+</head>
+
+<body>
+
+  <script type="text/javascript">
+
+     d3.csv("data/myDataHistogram.csv", function (data){
+
+        //console.log(data);      //Each object has name and age
+
+        //New map to return new array with only ages
+        var map = data.map(function(i) { return parseInt(i.age); });
+
+        //console.log(map);              //Returns an array of integers
+
+        var histogram = d3.layout.histogram()
+                          .bins(5)
+                          (map)
+
+        //console.log(histogram);         //Returns an array of arrays
+
+        var canvas = d3.select("body").append("svg")
+                        .attr("width", 500)
+                        .attr("height", 500);
+
+        var bars = canvas.selectAll(".bar")
+                          .data(histogram)
+                          .enter()
+                          .append("g")
+
+        bars.append("rect")
+              .attr("x", function (d) { return d.x * 5; })
+              .attr("y", 0)
+              .attr("width", function (d) { return d.dx * 5 - 5; }) 
+              .attr("height",function (d) { return d.y * 20; })
+              .attr("fill", "steelblue");
+     });
+
+
+      
+  </script>
+
+</body>
+
+</html>

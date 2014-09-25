@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+  <title>Histograms in D3</title>
+  <script src = 'd3.v3.min.js'></script>
+</head>
+
+<body>
+
+  <script type="text/javascript">
+
+    var width = 500,
+        height = 500,
+        padding = 50;
+
+     d3.csv("data/myDataHistogram.csv", function (data){
+
+        //console.log(data);      //Each object has name and age
+
+        //New map to return new array with only ages
+        var map = data.map(function(i) { return parseInt(i.age); });
+
+        //console.log(map);              //Returns an array of integers
+
+        var histogram = d3.layout.histogram()
+                          .bins(7)
+                          (map)
+
+        //console.log(histogram);         //Returns an array of arrays
+
+        var y = d3.scale.linear()
+                  .domain([0, d3.max(histogram.map( function (i) { return i.length; }))])
+                  .range([0, height]); 
+
+        var x = d3.scale.linear()
+                  .domain([0, d3.max(map)])
+                  .range([0, width]);  
+
+        var xAxis = d3.svg.axis()
+                    .scale(x)
+                    .orient("bottom");               
+
+        var canvas = d3.select("body").append("svg")
+                        .attr("width", width)
+                        .attr("height", height + padding)
+                        .append("g")
+                            .attr("transform", "translate(20,0)");
+
+        var group = canvas.append("g")
+                      .attr("transform", "translate(0," + height + ")")
+                      .call(xAxis);
+
+        var bars = canvas.selectAll(".bar")
+                          .data(histogram)
+                          .enter()
+                          .append("g");
+
+        bars.append("rect")
+              .attr("x", function (d) { return x(d.x); })
+              .attr("y", function (d) { return 500 - y(d.y); })
+              .attr("width", function (d) { return x(d.dx); }) 
+              .attr("height",function (d) { return y(d.y); })
+              .attr("fill", "steelblue");
+     });
+
+
+      
+  </script>
+
+</body>
+
+</html>

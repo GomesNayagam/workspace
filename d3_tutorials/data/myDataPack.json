@@ -1,0 +1,34 @@
+{
+  "name": "MSFT",
+  "value": 100,
+  "children": [
+    {
+      "name": "ACQ",
+      "value": 75,
+      "children": [
+        {"name": "Apple","value": 25 },
+        {"name": "Steve","value": 15 },
+        {"name": "Newyork","value": 15 },
+        {"name": "Amazon", "value": 25},
+        {"name": "Mozilla", "value": 25}
+      ]
+    },
+    {
+      "name": "JOB",
+      "value": 75,
+      "children": [
+        {"name": "Jeff", "value": 25 },
+        {"name": "Flipcart", "value": 5 },
+        {"name": "Buffy", "value": 25 }
+      ]
+    },
+    {
+      "name": "",
+      "value": 75,
+        "children": [
+        {"name": "Facebook", "value": 15 },
+        {"name": "Google", "value": 15 }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+  <title>Enter, Exit and Update in D3</title>
+  <script src = 'http://d3js.org/d3.v3.min.js'></script>
+</head>
+
+<body>
+
+  <script type="text/javascript">
+
+    // DOM elements < data elements (enter)
+    // DOM elements > data elements (exit)
+    // DOM elements = data elements (update)
+
+    //var data = [10, 20];
+    var data = [10];
+
+    var canvas = d3.select("body")
+                  .append("svg")
+                  .attr("width", 500)
+                  .attr("height", 500);
+
+    var circle1 = canvas.append("circle")
+                  .attr("cx", 50)
+                  .attr("cy", 100)
+                  .attr("r", 25);
+
+    var circle2 = canvas.append("circle")
+                  .attr("cx", 50)
+                  .attr("cy", 200)
+                  .attr("r", 25);
+
+    // var circles = canvas.selectAll("circle")
+    //               .data(data)
+    //               .attr("fill", "red")                  //Update selection with existing DOM elements
+    //               .enter()
+    //                   .append("circle")                 //For all not already specified in DOM, enter selection
+    //                   .attr("cx", 50)
+    //                   .attr("cy", 50)
+    //                   .attr("fill", "green")
+    //                   .attr("r", 25);
+
+    var circles = canvas.selectAll("circle")
+                  .data(data)
+                  .attr("fill", "green")
+                  .exit()                                   //Exit is when more DOM elements than data
+                      .attr("fill", "blue");
+
+
+  </script>
+</body>
+</html>

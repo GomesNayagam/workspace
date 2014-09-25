@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+  <title>Pie Chart in D3</title>
+  <script src = 'http://d3js.org/d3.v3.min.js'></script>
+</head>
+
+<body>
+
+  <script type="text/javascript">
+
+
+      var data = [10, 50, 80];
+      var r = 300;
+
+      var color = d3.scale.ordinal()
+                    .range(["red", "blue", "orange"]);
+
+      var canvas = d3.select("body").append("svg")
+                      .attr("width", 1500)
+                      .attr("height", 1500);
+
+
+      var group = canvas.append("g")
+                    .attr("transform", "translate(300, 300)");
+
+      //Each layout takes a set of data and recalculates and returns something different
+      //In this case, the pie layout
+      //Each object has a start angle and an end angle
+
+      var arc = d3.svg.arc()
+                  .innerRadius(200)
+                  .outerRadius(r)
+
+      var pie = d3.layout.pie()
+                  .value(function(d) { return d;});
+
+      var arcs = group.selectAll(".arc")
+                    .data(pie(data))              //Bind data through pie layout
+                    .enter()
+                    .append("g")
+                    .attr("class","arc");          
+
+      arcs.append("path")                         //Append path to each returned object
+          .attr("d", arc)                         //D fetches path from arc generator
+          .attr("fill", function(d) { return color(d.data)});
+
+      arcs.append("text")
+          .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")";})
+          .attr("text-anchor", "middle")
+          .attr("font-size", "1.5em")
+          .text(function (d) { return d.data; });
+
+  </script>
+
+</body>
+
+</html>

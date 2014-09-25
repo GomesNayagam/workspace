@@ -1,0 +1,1 @@
+(dell[s]?|machine|service[s]?|delivery|quality|performance|price[s]?|return|durable|durability|replace|stuck|manufacture|defect|reset|hour[s]?)

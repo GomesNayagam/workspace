@@ -1,0 +1,46 @@
+Lambda
+------
+>>> def f (x): return x**2
+... 
+>>> print f(8)
+64
+>>> 
+>>> g = lambda x: x**2
+>>> 
+>>> print g(8)
+64
+
+>>> foo = [2, 18, 9, 22, 17, 24, 8, 12, 27]
+>>> 
+>>> print filter(lambda x: x % 3 == 0, foo)
+[18, 9, 24, 12, 27]
+>>> 
+>>> print map(lambda x: x * 2 + 10, foo)
+[14, 46, 28, 54, 44, 58, 26, 34, 64]
+>>> 
+>>> print reduce(lambda x, y: x + y, foo)
+139
+
+-------------ngram(tee,slice,tuple) e.g.ngrams(content,2)---------------
+def ngrams(lst, n):
+    tlst = lst
+    while True:
+            a, b = tee(tlst)
+            l = tuple(islice(a, n))
+            if len(l) == n:
+                yield l
+                next(b)
+                tlst = b
+            else:
+                break
+                
+-------Counter example-----
+  words = re.findall('\w+', " ".join(finallist))
+    cnt = Counter(zip(words))
+    
+    print "-----------For Unigram-----------"
+    
+    for letter, count in cnt.most_common(3):
+        print '%s: %7d' % (letter, count)
+    
+    cnt1 = Counter(zip(words,words[1:]))

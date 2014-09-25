@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+  <title>Arcs in D3</title>
+  <script src = 'http://d3js.org/d3.v3.min.js'></script>
+</head>
+
+<body>
+
+  <script type="text/javascript">
+
+
+
+      var canvas = d3.select("body").append("svg")
+                      .attr("width", 500)
+                      .attr("height", 500);
+
+
+      var group = canvas.append("g")
+                    .attr("transform", "translate(100, 100)");
+
+
+      var r = 100;                          //Radius in pixels
+      var p = Math.PI * 2;                  //Perimeter in angle - full circle in radians is 2Pi
+
+
+
+      var arc = d3.svg.arc()                //D3 arc generator with attributes
+                  .innerRadius(r - 20)
+                  .outerRadius(r)
+                  .startAngle(0)
+                  .endAngle(p - 2);
+
+
+      group.append("path")                   //Append arc to canvas object group
+            .attr("d", arc)
+
+
+
+  </script>
+
+</body>
+
+</html>

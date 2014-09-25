@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+	<title>Data in D3</title>
+	<script src = 'http://d3js.org/d3.v3.min.js'></script>
+</head>
+
+<body>
+
+	<script type="text/javascript">
+
+    var dataArray = [20, 40, 60];
+
+    var canvas = d3.select("body")
+                  .append("svg")
+                  .attr("width", 500)
+                  .attr("height", 500);
+
+    var bars = canvas.selectAll("rect")     //Returns empty selection but can be bound to data
+                .data(dataArray)            //Bind rects to data
+                .enter()                    //Returns place holder elements if they are not already displayed by DOM
+                    .append("rect")
+                    .attr("width", function(d) { return d * 10;})    //Function grabs data elements and applies to width
+                    .attr("height", 50)
+                    .attr("y", function (d , i) { return i * 100; });    //Function height relative to index
+                  
+
+	</script>
+
+</body>
+</html>
